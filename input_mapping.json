@@ -3,5 +3,9 @@
     "right-mouse": "2",
     "esc": "1",
     "ctrl-shift-tab":"9",
-    "ctrl-tab": "10"
+    "ctrl-tab": "10",
+    "GridUp": "11",
+    "GridDown": "12",
+    "GridLeft": "13",
+    "GridRight": "14"
 }

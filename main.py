@@ -1,19 +1,28 @@
 import pygame
-import sys
 import pyautogui
 
 from input_handler import *
+from json_reader import read_json
+from VariableContainer import VariableContainer
+
+pyautogui.FAILSAFE = False
 
 def main():
     pygame.init()
+    size = pyautogui.size()
 
     joystick = initialize_joystick()
 
-    alpha = 0.9
+    userVariables = VariableContainer("userVariables")
+
+    alpha = userVariables.data["alpha"]
+    threshold = userVariables.data["threshold"]
+    
+
+    userVariables.update_data({"stepvx":int(size.width/userVariables.data["stepdx"])})
+    userVariables.update_data({"stepvy":int(size.height/userVariables.data["stepdy"])})
+    
     smoothed_values = (0, 0)
-    threshold = 0.05
-    speed = 1
-    input_data = ler_json("input_mapping.json")
 
     while True:
         

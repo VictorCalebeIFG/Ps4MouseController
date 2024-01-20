@@ -1,7 +1,9 @@
 import pygame
 import pyautogui
 
+
 from json_reader import ler_json
+from VariableContainer import VariableContainer
 
 def initialize_joystick():
     pygame.joystick.init()
@@ -13,13 +15,35 @@ def initialize_joystick():
     joystick.init()
     return joystick
 
+'''
+Faz o "Match" do botão do controle com o botão do teclado
+Responsible for Matching the button on the controller with the button on the keyboard.
+'''
 def create_key_board_event(event):
     input_data = ler_json("input_mapping.json")
+
     if input_data["left-mouse"] == str(event.button):
         pyautogui.click(button="left")
+    
     elif input_data["right-mouse"] == str(event.button):
         pyautogui.click(button="right")
     
+    elif input_data["GridUp"] == str(event.button):
+        userData = VariableContainer("userVariables")
+        pyautogui.move(0, -userData.data["stepvy"])
+    
+    elif input_data["GridDown"] == str(event.button):
+        userData = VariableContainer("userVariables")
+        pyautogui.move(0, userData.data["stepvy"])
+    
+    elif input_data["GridLeft"] == str(event.button):
+        userData = VariableContainer("userVariables")
+        pyautogui.move(-userData.data["stepvx"], 0)
+    
+    elif input_data["GridRight"] == str(event.button):
+        userData = VariableContainer("userVariables")
+        pyautogui.move(userData.data["stepvx"], 0)
+
     for k in input_data.keys():
         if input_data[k] == str(event.button):            
             if '-' in k and len(k.split('-')) >= 2 and k.split('-')[0] != 'left' and k.split('-')[0] != 'right':
