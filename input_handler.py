@@ -2,8 +2,8 @@ import pygame
 import pyautogui
 
 
-from json_reader import ler_json
-from VariableContainer import VariableContainer
+from Tools.json_reader import ler_json
+from Tools.VariableContainer import VariableContainer
 
 def initialize_joystick():
     pygame.joystick.init()
@@ -56,9 +56,9 @@ def create_key_board_event(event):
 def get_button_events(pygame, joystick):
     for event in pygame.event.get():
         if event.type == pygame.JOYBUTTONDOWN:
-            print(event)
-        elif event.type == pygame.JOYBUTTONUP:
             create_key_board_event(event)
+        elif event.type == pygame.JOYBUTTONUP:
+            print(event)
         elif event.type == pygame.JOYHATMOTION:
             None
 
@@ -69,7 +69,7 @@ def get_smoothed_values(alpha, current_values, new_values):
     )
 
 def move_mouse(analog_values, current_position):
-    velocity = 10 
+    velocity = VariableContainer("userVariables").data["speed"] 
 
     new_x = int(current_position[0] + analog_values[0] * velocity)
     new_y = int(current_position[1] + analog_values[1] * velocity)
