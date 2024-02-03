@@ -69,7 +69,7 @@ def get_smoothed_values(alpha, current_values, new_values):
     )
 
 def move_mouse(analog_values, current_position):
-    velocity = VariableContainer("userVariables").data["speed"] 
+    velocity = int (VariableContainer("userVariables").data["speed"])
 
     new_x = int(current_position[0] + analog_values[0] * velocity)
     new_y = int(current_position[1] + analog_values[1] * velocity)

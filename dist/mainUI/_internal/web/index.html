@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="eel.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+    
+    <div class="controller-buttons">
+        <p><span>Left-Mouse</span><span id="left-mouse" class="keyboard-info">cross-button</span></p>
+        <p><span>Right-Mouse</span><span id="right-mouse" class="keyboard-info">square-button</span></p>
+        <p><span>Esc</span><span id="esc" class="keyboard-info">circle-button</span></p>
+        <p><span>Ctrl-Tab</span><span id="ctrl-tab" class="keyboard-info">R1</span></p>
+        <p><span>Ctrl-Shift-Tab</span><span id="ctrl-shift-tab" class="keyboard-info">L1</span></p>
+        <p><span>Grid-Up</span><span id="grid-up" class="keyboard-info">direction-up</span></p>
+        <p><span>Grid-Down</span><span id="grid-down" class="keyboard-info">direction-down</span></p>
+        <p><span>Grid-Left</span><span id="grid-left" class="keyboard-info">direction-left</span></p>
+        <p><span>Grid-Right</span><span id="grid-right" class="keyboard-info">direction-right</span></p>
+        <p><span>Mouse Movement</span><span class="keyboard-info">left analog</span></p>
+        <p><span>Scroll wheel</span><span class="keyboard-info">right analog</span></p>
+    </div>
+
+    <div class="user-preferences">
+        <div>
+
+            <select id="controller-option" onchange="set_controller_option()">
+                <option value="ps4">ps4-controller</option>
+                <option value="xbox">xbox-controller</option>
+            </select>
+
+            <div class="vertical-slider" style="transform: rotate(90deg); transform-origin: left bottom;">
+                <input class="input-range" orient="vertical" type="range" step="1" value="10" min="10" max="50" onchange="set_mouse_speed()" id="mouse-speed">
+            </div>
+
+        </div>
+    </div>
+    
+</body>
+
+
+</html>
