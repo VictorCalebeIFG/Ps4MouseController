@@ -152,6 +152,7 @@ def is_app_open():
 
 
 def open_window(titulo_da_janela):
+    print(f"Janela selecionada: {titulo_da_janela}")
     try:
         # Tente encontrar a janela pelo título
         janela = Desktop(backend="uia").window(title=titulo_da_janela)
@@ -161,8 +162,8 @@ def open_window(titulo_da_janela):
             # Restaure a janela se ela estiver minimizada
             if janela.is_minimized():
                 janela.restore()
-            # Traz a janela para a frente
             janela.set_focus()
+
         else:
             print(f"Janela com o título '{titulo_da_janela}' não encontrada.")
     except Exception as e:
