@@ -4,6 +4,8 @@ import App
 import Tools.VariableContainer as vbc
 import pygetwindow as gw
 
+from pywinauto import Desktop
+
 # Inicializar o Eel
 eel.init('web')
 
@@ -39,10 +41,19 @@ def python_get_active_window():
 
 @eel.expose
 def python_get_windows():
-    windows = gw.getAllTitles()
-    windows = list(set(filter(None, windows)))
-    print(windows)
-    return windows
+    try:
+        # Obter todas as janelas abertas no desktop
+        todas_janelas = Desktop(backend="uia").windows()
+
+        # Extrair títulos das janelas
+        titulos_janelas = [janela.window_text() for janela in todas_janelas]
+
+        return titulos_janelas
+
+    except Exception as e:
+        print(f"Erro ao tentar obter a lista de títulos das janelas: {e}")
+        return []
+
 
 # Iniciar o aplicativo Eel
 eel.start('index.html', size=(800, 500))

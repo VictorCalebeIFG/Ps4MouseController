@@ -1,4 +1,4 @@
-eel.python_print("hello");
+
 eel.python_get_active_window();
 
 var screen_index = 0;
@@ -21,20 +21,29 @@ function set_mouse_speed(){
 
 eel.expose(render_screen_list);
 async function render_screen_list() {
-    let list_to_render = await eel.python_get_windows()()
+    try {
+        eel.python_print("render_screen_list");
+        
+        // Utilize await ou then para lidar com a promessa
+        let list_to_render = await eel.python_get_windows()();
 
-    let screenListDiv = document.querySelector('.screen-list');
-    screenListDiv.innerHTML = "";
+        let screenListDiv = document.querySelector('.screen-list');
+        screenListDiv.innerHTML = "";
 
-    list_to_render.forEach(element => {
-        let new_li = document.createElement('li');
-        new_li.innerHTML = element;
-        screenListDiv.appendChild(new_li);
-    });
+        list_to_render.forEach(element => {
+            let new_li = document.createElement('li');
+            new_li.innerHTML = element;
+            screenListDiv.appendChild(new_li);
+        });
 
-    let list_elements = document.querySelectorAll('.screen-list li');
-    list_elements[screen_index].classList.add('selected');
+        let list_elements = document.querySelectorAll('.screen-list li');
+        list_elements[screen_index].classList.add('selected');
+    } catch (error) {
+        console.error("Erro ao renderizar a lista:", error);
+    }
 }
+
+window.addEventListener('focus', render_screen_list);
 
 eel.expose(js_select_screen_ui);
 function js_select_screen_ui(action){

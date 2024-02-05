@@ -29,6 +29,7 @@ def get_button_events(pygame,eel = None):
 
 
 def create_key_board_event(event,eel=None):
+    
     '''
     Responsible for Matching the button on the controller with the button on the keyboard.
     '''
@@ -50,7 +51,6 @@ def create_key_board_event(event,eel=None):
     actions[str(event.button)]()
     time.sleep(0.01)
 
-            
 
 def get_smoothed_values(alpha, current_values, new_values):
     """
@@ -104,7 +104,6 @@ def open_main_ui(eel = None):
     window = gw.getWindowsWithTitle(VariableContainer("userVariables").data["active_window"])[0]
     if window.isMinimized:
         window.restore()
-        eel.render_screen_list()
         VariableContainer("userVariables").update_data({"is_app_open": True})
     else:
         window.minimize()
