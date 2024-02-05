@@ -10,7 +10,7 @@ eel.init('web')
 # Função que será executada em um thread separado
 def loop_python():
     while True:
-        App.run()
+        App.run(eel=eel)
 
 # Iniciar o loop em um thread separado
 thread = threading.Thread(target=loop_python)
@@ -34,6 +34,7 @@ def python_set_speed(speed):
 @eel.expose
 def python_get_active_window():
     active_window = gw.getActiveWindowTitle()
+    vbc.VariableContainer("userVariables").update_data({"active_window": str(active_window)})
     print(active_window)
 
 # Iniciar o aplicativo Eel

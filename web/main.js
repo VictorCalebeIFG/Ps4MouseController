@@ -32,6 +32,10 @@ function set_controller_option() {
 
     }
 }
+eel.expose(js_arrow_up);
+function js_arrow_up(){
+    console.log("js_arrow_up")
+}
 
 
 readJsonFile();

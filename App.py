@@ -24,10 +24,10 @@ userVariables.update_data({"stepvy":int(size.height/userVariables.data["stepdy"]
 smoothed_values = (0, 0)
 
 
-def run():
+def run(eel = None):
     move_mouse_with_joystick(joystick, alpha, smoothed_values, threshold)
     move_scroll_with_joystick(joystick, alpha, smoothed_values, threshold)
 
-    get_button_events(pygame, joystick)
+    get_button_events(pygame,eel=eel)
 
 

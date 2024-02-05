@@ -31,7 +31,7 @@ def run():
         move_mouse_with_joystick(joystick, alpha, smoothed_values, threshold)
         move_scroll_with_joystick(joystick, alpha, smoothed_values, threshold)
 
-        get_button_events(pygame, joystick)
+        get_button_events(pygame)
 
 
 run()
