@@ -1,1 +1,1 @@
-{"alpha": 0.9, "speed": "10", "stepdx": 10, "stepdy": 10, "stepvx": 192, "stepvy": 108, "threshold": 0.05, "active_window": "JoyStickCommander", "is_app_open": true}
+{"alpha": 0.9, "speed": "10", "stepdx": 10, "stepdy": 10, "stepvx": 192, "stepvy": 108, "threshold": 0.05, "active_window": "JoyStickCommander", "is_app_open": false}

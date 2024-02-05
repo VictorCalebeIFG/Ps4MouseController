@@ -3,6 +3,7 @@ import pyautogui
 import pygetwindow as gw
 import time
 from Tools.VariableContainer import VariableContainer
+from pywinauto import Desktop
 
 
 
@@ -150,10 +151,23 @@ def confirmation_key(eel):
 def is_app_open():
     return VariableContainer("userVariables").data["is_app_open"]
 
-def open_window(title):
-    
-    gw.getWindowsWithTitle(title)[0].minimize()
-    gw.getWindowsWithTitle(title)[0].restore()
 
+def open_window(titulo_da_janela):
+    try:
+        # Tente encontrar a janela pelo título
+        janela = Desktop(backend="uia").window(title=titulo_da_janela)
+        
+        # Verifique se a janela foi encontrada
+        if janela.exists():
+            # Restaure a janela se ela estiver minimizada
+            if janela.is_minimized():
+                janela.restore()
+            # Traz a janela para a frente
+            janela.set_focus()
+        else:
+            print(f"Janela com o título '{titulo_da_janela}' não encontrada.")
+    except Exception as e:
+        print(f"Erro ao tentar encontrar a janela: {e}")
+    
     open_main_ui(eel = None)
     
