@@ -37,5 +37,12 @@ def python_get_active_window():
     vbc.VariableContainer("userVariables").update_data({"active_window": str(active_window)})
     print(active_window)
 
+@eel.expose
+def python_get_windows():
+    windows = gw.getAllTitles()
+    windows = list(set(filter(None, windows)))
+    print(windows)
+    return windows
+
 # Iniciar o aplicativo Eel
 eel.start('index.html', size=(800, 500))

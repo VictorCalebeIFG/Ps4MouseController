@@ -20,6 +20,8 @@ threshold = userVariables.data["threshold"]
 
 userVariables.update_data({"stepvx":int(size.width/userVariables.data["stepdx"])})
 userVariables.update_data({"stepvy":int(size.height/userVariables.data["stepdy"])})
+
+VariableContainer("userVariables").update_data({"is_app_open": True})
     
 smoothed_values = (0, 0)
 

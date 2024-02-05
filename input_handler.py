@@ -34,18 +34,21 @@ def create_key_board_event(event,eel=None):
     input_event = VariableContainer("input_mapping").data
 
     actions = {
-        input_event["left-mouse"]: lambda: pyautogui.click(button="left"),
+        input_event["left-mouse"]: lambda: confirmation_key(eel),
         input_event["right-mouse"]: lambda: pyautogui.click(button="right"),
-        input_event["open-user-interface"]: lambda: open_main_ui(),
+        input_event["open-user-interface"]: lambda: open_main_ui(eel),
         input_event["GridUp"]: lambda: GridUp(eel),
         input_event["GridDown"]: lambda: GridDown(eel),
         input_event["GridLeft"]: lambda: GridLeft(eel),
-        input_event["GridRight"]: lambda: GridRight(eel)
+        input_event["GridRight"]: lambda: GridRight(eel),
+        input_event["esc"]: lambda: pyautogui.hotkey('esc'),
+        input_event["left-browser-tab"]: lambda: left_browser_tab(),
+        input_event["right-browser-tab"]: lambda: right_browser_tab()
     }
 
     actions[str(event.button)]()
+    time.sleep(0.01)
 
-    handle_complex_hot_key(mapping_data=input_event.data)
             
 
 def get_smoothed_values(alpha, current_values, new_values):
@@ -96,23 +99,26 @@ def move_scroll_with_joystick(joystick, alpha, smoothed_values, threshold,joysti
     if analog_y != 0:
         pyautogui.scroll(round(analog_y*-20))
 
-def open_main_ui():
+def open_main_ui(eel = None):
     window = gw.getWindowsWithTitle(VariableContainer("userVariables").data["active_window"])[0]
     if window.isMinimized:
         window.restore()
+        eel.render_screen_list()
+        VariableContainer("userVariables").update_data({"is_app_open": True})
     else:
         window.minimize()
-    time.sleep(0.5)
+        VariableContainer("userVariables").update_data({"is_app_open": False})
+    
 
 def GridUp(eel):
     userData = VariableContainer("userVariables")
     pyautogui.move(0, -userData.data["stepvy"])
-    eel.js_arrow_up()
+    eel.js_select_screen_ui("up")
 
 def GridDown(eel):
     userData = VariableContainer("userVariables")
     pyautogui.move(0, userData.data["stepvy"])
-    #eel.js_arrow_down()
+    eel.js_select_screen_ui("down")
 
 def GridLeft(eel):
     userData = VariableContainer("userVariables")
@@ -124,10 +130,30 @@ def GridRight(eel):
     pyautogui.move(userData.data["stepvx"], 0)
     #eel.js_arrow_right()
 
-def handle_complex_hot_key(mapping_data):
-    for k in mapping_data.keys():
-        if k in mapping_data:
-            if '-' in k and len(k.split('-')) >= 2 and k.split('-')[0] != 'left' and k.split('-')[0] != 'right':
-                pyautogui.hotkey(*k.split('-'))
-            else:
-                pyautogui.hotkey(k)
+def left_browser_tab():
+    k = "ctrl-shift-tab"
+    pyautogui.hotkey(*k.split('-'))
+
+def right_browser_tab():
+    k = "ctrl-tab"
+    pyautogui.hotkey(*k.split('-'))
+
+def confirmation_key(eel):
+    ui_mode = 0
+    if is_app_open():
+        if ui_mode == 0:
+            eel.js_get_screen_selected()(lambda x: open_window(x))
+            
+    else:
+        pyautogui.click(button="left")
+
+def is_app_open():
+    return VariableContainer("userVariables").data["is_app_open"]
+
+def open_window(title):
+    
+    gw.getWindowsWithTitle(title)[0].minimize()
+    gw.getWindowsWithTitle(title)[0].restore()
+
+    open_main_ui(eel = None)
+    
