@@ -25,7 +25,7 @@ async function render_screen_list() {
         eel.python_print("render_screen_list");
         
         // Utilize await ou then para lidar com a promessa
-        let list_to_render = await eel.python_get_windows()();
+        let list_to_render = await eel.get_user_links()();
 
         let screenListDiv = document.querySelector('.screen-list');
         screenListDiv.innerHTML = "";

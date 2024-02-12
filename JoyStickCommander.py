@@ -40,14 +40,10 @@ def python_get_active_window():
     print(active_window)
 
 @eel.expose
-def python_get_windows():
+def get_user_links():
     try:
         # Obter todas as janelas abertas no desktop
-        todas_janelas = Desktop(backend="uia").windows()
-
-        # Extrair títulos das janelas
-        titulos_janelas = [janela.window_text() for janela in todas_janelas]
-
+        titulos_janelas = vbc.VariableContainer("user_links").data['links']
         return titulos_janelas
 
     except Exception as e:
@@ -56,4 +52,4 @@ def python_get_windows():
 
 
 # Iniciar o aplicativo Eel
-eel.start('index.html', size=(800, 500))
+eel.start('index.html', size=(1000, 600))

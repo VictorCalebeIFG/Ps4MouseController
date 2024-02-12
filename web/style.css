@@ -1,5 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap');
+
 body{
     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: small;
+}
+
+body >*{
+    margin: 10px;
 }
 
 .user-interface-helper{
@@ -26,3 +37,30 @@ body{
 .screen-list li.selected {
     background-color: #f0f0f0;
 }
+
+.vertical-slider {
+    display: flex;
+    align-items: center;
+}
+
+.input-range {
+    width: 100%; /* Faz o input-range ocupar 100% do width da div */
+    height: 5px;
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.container-A{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px;
+}
+
+.container-A > *{
+    margin: 10px;
+}
+
